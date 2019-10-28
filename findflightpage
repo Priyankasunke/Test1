@@ -1,0 +1,85 @@
+Feature: validate the flight finder page details
+
+  Scenario: validate the flight finder page with correct credentials
+    Given i am on the the flight finder page
+    When  i enter the following details, i enter username and password
+        And i click on Sign-in button
+        And i select 'One Way' as my type
+       And i select '2' passengers
+       And  i select 'Portland' as my Departing From
+       And i select month and date
+       And  i select 'Paris' as my Arriving In
+       And i select 'August' as my Returning and date
+       And i select 'First class' as my Service Class
+       And i select 'Unified Airlines' as my Airline
+       And click on continue button
+    Then i should on the Select a Flight: Mercury Tours:
+
+
+
+Given(/^i am on the the flight finder page$/) do
+  @browser=Watir::Browser.new :firefox
+  @browser.goto 'http://newtours.demoaut.com/mercuryreservation.php'
+end
+
+When(/^i enter the following details, i select 'One Way' as my type$/) do
+  @browser.radio(value: 'oneway').click
+end
+
+And(/^i select '2' passengers$/) do
+  @browser.select_list(name: 'passCount').select '2'
+end
+
+And(/^i select 'Portland' as my Departing From$/) do
+  @browser.select_list(name: 'fromPort').select 'Portland'
+end
+
+And(/^i select 'Paris' as my Arriving In$/) do
+  @browser.select_list(name: 'toPort').select 'Paris'
+end
+
+And(/^i select 'August' as my Returning$/) do
+  @browser.select_list(name: 'toMonth').select 'August'
+end
+
+And(/^i select 'First class' as my Service Class$/) do
+ a= @browser.radio(value: 'First').click
+  puts a
+end
+
+And(/^i select 'Unified Airlines' as my Airline$/) do
+  @browser.select_list(name: 'airline').select 'Unified Airlines'
+  sleep(5)
+end
+
+And(/^click on continue button$/) do
+  @browser.button(name: 'findFlights').click
+  sleep(5)
+end
+
+Then(/^i should on the Select a Flight: Mercury Tours:$/) do
+  puts @browser.title
+end
+
+When(/^i enter the following details, i enter username and password$/) do
+   @browser.text_field(name: 'userName').set 'jerry123@gmail.com'
+   @browser.text_field(name: 'password').set 'Jerry@1234'
+end
+
+And(/^i click on Sign\-in button$/) do
+  @browser.button(value: 'Login').click
+end
+
+And(/^i select 'One Way' as my type$/) do
+  @browser.radio(value: 'oneway').click
+end
+
+And(/^i select month and date$/) do
+  @browser.select_list(name: 'fromMonth').select 'August'
+  @browser.select_list(name: 'fromDay').select '20'
+end
+
+And(/^i select 'August' as my Returning and date$/) do
+  @browser.select_list(name: 'toMonth').select 'August'
+  @browser.select_list(name: 'toDay').select '30'
+end
